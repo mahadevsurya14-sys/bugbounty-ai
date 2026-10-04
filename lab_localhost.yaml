@@ -1,0 +1,38 @@
+program:
+  program_id: "local_security_lab"
+  program_name: "Localhost Security Test Lab"
+  platform: "Local Development / Lab"
+  description: "Safe test environment for localhost and intentionally vulnerable containers."
+  mode: "LAB"
+  lab_mode: true
+  scope:
+    domains:
+      - "localhost"
+      - "*.local"
+    ips:
+      - "127.0.0.1"
+      - "::1"
+    ports:
+      - 80
+      - 443
+      - 8000
+      - 8080
+      - 5000
+  exclusions:
+    domains:
+      - "production.local"
+    paths:
+      - "/admin/shutdown"
+  limits:
+    requests_per_second: 5.0
+    requests_per_minute: 120.0
+    max_concurrency: 4
+    timeout_seconds: 10
+  allowed_tools:
+    - "curl"
+    - "nmap"
+    - "httpx"
+    - "dnsx"
+    - "ffuf"
+  custom_rules:
+    - "Authorized strictly on localhost and local test containers."

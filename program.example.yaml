@@ -1,0 +1,79 @@
+# ==============================================================================
+# BugBounty-AI Example Program Scope Configuration
+# ==============================================================================
+program:
+  program_id: "example_bounty"
+  program_name: "Example Bug Bounty Program"
+  platform: "HackerOne"
+  description: "Authorized bug bounty program with strict scope constraints."
+  policy_url: "https://hackerone.com/example"
+  start_date: "2026-01-01"
+  end_date: "2026-12-31"
+  mode: "PASSIVE"
+  lab_mode: false
+
+  # Explicit In-Scope Assets
+  scope:
+    domains:
+      - "example.com"
+      - "*.example.com"
+      - "api.partner-example.com"
+    subdomains:
+      - "app.example.com"
+      - "auth.example.com"
+    ips:
+      - "192.168.1.100"
+    cidrs:
+      - "10.0.0.0/16"
+    urls:
+      - "https://api.example.com/v1/"
+    ports:
+      - 80
+      - 443
+      - 8443
+
+  # Explicit Exclusions (Strictly Blocked)
+  exclusions:
+    domains:
+      - "excluded.example.com"
+      - "internal-admin.example.com"
+    paths:
+      - "/admin/shutdown"
+      - "/internal/*"
+      - "/debug/*"
+    parameters:
+      - "internal_token"
+      - "debug_override"
+
+  # Rate Limiting & Concurrency Controls
+  limits:
+    requests_per_second: 2.0
+    requests_per_minute: 60.0
+    max_concurrency: 2
+    max_requests_per_target: 1000
+    cooldown_seconds: 0.5
+    timeout_seconds: 15
+
+  # Prohibited Testing Categories
+  prohibited_testing:
+    - "denial_of_service"
+    - "credential_stuffing"
+    - "mass_password_guessing"
+    - "destructive_exploitation"
+    - "persistence_deployment"
+    - "data_destruction"
+
+  # Approved Tooling
+  allowed_tools:
+    - "curl"
+    - "httpx"
+    - "dnsx"
+    - "subfinder"
+    - "nmap"
+    - "ffuf"
+
+  authentication_notes: "Test accounts provided by program coordinator only. Sensitive headers auto-redacted."
+  safe_harbor_notes: "Activities conducted in good faith within scope are protected by safe harbor."
+  custom_rules:
+    - "Report vulnerabilities immediately via platform coordinator."
+    - "Never modify or access data belonging to other users."

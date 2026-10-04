@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  bugbounty-ai:
+    build: .
+    image: bugbounty-ai:latest
+    container_name: bugbounty-ai
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./reports:/app/reports
+      - ./config:/app/config
+    environment:
+      - BUGBOUNTY_DATABASE_URL=sqlite:///data/bugbounty.db
+      - BUGBOUNTY_DEFAULT_MODE=PASSIVE
+      - BUGBOUNTY_LOG_LEVEL=INFO
+    stdin_open: true
+    tty: true
+    command: ["--help"]
